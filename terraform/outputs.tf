@@ -13,6 +13,18 @@ output "app_service_account_email" {
   value       = google_service_account.app.email
 }
 
+output "etl_sa_email" {
+  value = google_service_account.etl.email
+}
+
+output "bot_sa_email" {
+  value = google_service_account.bot.email
+}
+
+output "scheduler_sa_email" {
+  value = google_service_account.scheduler.email
+}
+
 output "raw_prefix" {
   value = "projects/_/buckets/${google_storage_bucket.production.name}/objects/raw/"
 }
