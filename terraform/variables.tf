@@ -6,3 +6,8 @@ variable "region" {
   type    = string
   default = "us-central1"
 }
+
+variable "nasa_api_key" {
+  type      = string
+  sensitive = true
+}
