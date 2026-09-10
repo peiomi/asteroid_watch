@@ -1,4 +1,4 @@
-from etl.secrets_manager import SecretsManager
+from src.etl.secrets_manager import SecretsManager
 import requests
 
 
@@ -11,4 +11,6 @@ class NasaClient:
         url = "https://api.nasa.gov/neo/rest/v1/feed"
         params = {"start_date": "2026-08-27", "api_key": self.api_key}
         response = requests.get(url, params=params, timeout=5)
+        response.raise_for_status()
+
         return response.json()

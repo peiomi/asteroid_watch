@@ -1,6 +1,7 @@
-class CloudStorage:
-    def __init__(self):
-        pass
+import json
 
-    def store(self):
-        pass
+
+class CloudStorage:
+    def upload_json(self, data, filename):
+        with open(filename, "w") as f:
+            json.dump(data, f, indent=2)

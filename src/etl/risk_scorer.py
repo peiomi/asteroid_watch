@@ -1,6 +1,3 @@
 class RiskScorer:
-    def __init__(self):
-        pass
-
-    def score_risk(self):
+    def score_risk(self, records):
         pass

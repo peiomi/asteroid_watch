@@ -17,7 +17,7 @@ class ETLPipeline:
 
     def run(self):
         data = self.nasa.fetch()
-        self.storage.store(data)
+        self.storage.upload_json(data)
         records = self.normalizer.normalize(data)
         risk_score = self.scorer.score_risk(records)
         self.bigquery.write(risk_score)
