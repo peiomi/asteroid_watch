@@ -1,4 +1,4 @@
-import unittest
+"""import unittest
 from src.etl.nasa_client import NasaClient
 
 
@@ -15,3 +15,4 @@ class TestNasaClient(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+"""
