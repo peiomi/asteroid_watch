@@ -11,3 +11,14 @@ class AsteroidRecord:
     relative_velocity_km_s: float
     is_hazardous: bool
     close_approach_date: str
+
+
+@dataclass
+class RiskScore:
+    id: str
+    name: str
+    size: str
+    speed: str
+    distance: str
+    risk_score: int
+    risk_level: str

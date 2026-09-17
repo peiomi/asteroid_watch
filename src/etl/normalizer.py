@@ -1,4 +1,7 @@
 from src.etl.models import AsteroidRecord
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class Normalizer:
@@ -8,6 +11,7 @@ class Normalizer:
 
         required_fields = [
             "id",
+            "name",
             "estimated_diameter",
             "close_approach_data",
             "is_potentially_hazardous_asteroid",
@@ -15,6 +19,10 @@ class Normalizer:
         for date in neo:
             for asteroid in neo[date]:
                 if not all(field in asteroid for field in required_fields):
+                    logger.warning(
+                        "Skipping asteroid %s due to missing required fields",
+                        asteroid.get("id", "unknown"),
+                    )
                     continue
                 try:
                     record = AsteroidRecord(
@@ -42,6 +50,10 @@ class Normalizer:
                         ],
                     )
                     records.append(record)
-                except (KeyError, IndexError, ValueError, TypeError):
+                except (KeyError, IndexError, ValueError, TypeError) as error:
+                    logger.warning(
+                        "Skipping asteroid %s: %s", asteroid.get("id"), error
+                    )
                     continue
+        logger.info("Normalized %s asteroid records", len(records))
         return records

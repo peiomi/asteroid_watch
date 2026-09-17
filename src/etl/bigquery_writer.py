@@ -1,6 +1,3 @@
 class BigQueryWriter:
-    def __init__(self):
-        pass
-
-    def write(self):
+    def write(self, scores):
         pass

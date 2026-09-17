@@ -1,7 +1,12 @@
 from etl.pipeline import ETLPipeline
+import logging
 
 
 def main():
+    logging.basicConfig(
+        level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s"
+    )
+
     pipeline = ETLPipeline()
     pipeline.run()
     return

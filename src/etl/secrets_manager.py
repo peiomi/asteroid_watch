@@ -25,17 +25,14 @@ class SecretsManager:
     def _error_handling(self, name):
         try:
             response = self.client.access_secret_version(name=name)
-        except PermissionDenied as error:
-            raise Exception(error)
-        except NotFound as error:
-            raise Exception(error)
-        except ServiceUnavailable as error:
-            raise Exception(error)
-        except InternalServerError as error:
-            raise Exception(error)
-        except DeadlineExceeded as error:
-            raise Exception(error)
-        except DefaultCredentialsError as error:
-            raise Exception(error)
+        except (
+            PermissionDenied,
+            NotFound,
+            ServiceUnavailable,
+            InternalServerError,
+            DeadlineExceeded,
+            DefaultCredentialsError,
+        ) as error:
+            raise Exception(f"Failed to access secret '{name}'") from error
 
         return response.payload.data.decode("utf-8")
