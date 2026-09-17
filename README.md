@@ -2,9 +2,9 @@
 
 Asteroid Watch is a cloud/data engineering project that turns NASA's Near Earth Object data into a repeatable ingestion and risk-analysis pipeline.
 
-The project is designed to demonstrate how I approach an end-to-end data platform: fetching external data, storing the raw data, turning it into analytics-friendly records, and preparing secure cloud infrastructure for scheduled execution.
+The project is designed to demonstrate how I approach a full ETL cloud pipeline project: fetching external data, storing the raw data, turning it into analytics-friendly records, and preparing secure cloud infrastructure for scheduled execution.
 
-> **Project status:** Active development. The ingestion and infrastructure foundations are in place; risk scoring, BigQuery persistence, alerting, and production deployment are the next implementation steps.
+> **Project status:** Active development. The ingestion and infrastructure foundations are in place; fine tuning the risk scoring math, BigQuery persistence, alerting, building the bot, and production deployment are the next steps.
 
 ## What This Project Demonstrates
 
