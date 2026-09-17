@@ -13,8 +13,7 @@ The project is designed to demonstrate how I approach an end-to-end data platfor
 - Google Cloud Secret Manager usage for API credentials
 - Terraform-managed Google Cloud infrastructure
 - IAM separation for ETL, bot, and scheduler service accounts
-- Least-privilege Cloud Storage permissions for `raw/` and `errors/` object paths
-- Automated test entry point using Python's `unittest` framework
+- Automated test entry point using Python's `unittest`
 
 ## Architecture
 
@@ -85,14 +84,6 @@ From the repository root:
 ```
 
 The test suite is intentionally kept separate from cloud deployment. Tests that exercise external services require valid Google Cloud credentials and project configuration.
-
-## Local Configuration
-
-The application expects:
-
-- `GCP_PROJECT` set to the Google Cloud project ID
-- Application Default Credentials configured for Secret Manager access
-- A Secret Manager secret named `nasa_api_key`
 
 ## Planned Improvements
 
