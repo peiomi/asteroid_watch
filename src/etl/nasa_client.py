@@ -1,11 +1,9 @@
-from src.etl.secrets_manager import SecretsManager
 import requests
 
 
 class NasaClient:
-    def __init__(self):
-        self.secrets = SecretsManager()
-        self.api_key = self.secrets.get_secret("nasa_api_key")
+    def __init__(self, api_key):
+        self.api_key = api_key
 
     def fetch(self):
         url = "https://api.nasa.gov/neo/rest/v1/feed"
