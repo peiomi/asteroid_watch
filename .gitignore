@@ -1,6 +1,14 @@
-venv/
+# terraform 
 terraform.tfvars
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+tfplan
+*.tfplan
+
+# python
 __pycache__
-.env
+venv/
+
 
 

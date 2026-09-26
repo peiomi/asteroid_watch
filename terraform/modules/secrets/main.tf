@@ -2,7 +2,7 @@ resource "google_secret_manager_secret" "nasa_api_key" {
   secret_id = "nasa_api_key"
 
   replication {
-    automatic = true
+    auto {}
   }
 }
 
