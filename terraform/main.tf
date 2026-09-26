@@ -46,3 +46,13 @@ module "bigquery" {
   dataset_id = "asteroid_data"
   location   = "US"
 }
+
+module "cloud_run" {
+  source = "./modules/cloud_run"
+
+  region = var.region
+
+  service_account_email = module.iam.etl_sa_email
+
+  container_image = "us-central1-docker.pkg.dev/asteroid-watch-506918/asteroid-watch/asteroid-watch:latest"
+}

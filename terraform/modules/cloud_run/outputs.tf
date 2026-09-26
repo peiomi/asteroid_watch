@@ -1,7 +1,7 @@
-ouput "service_name" {
-  value = google_cloud_run_v2_service.etl.name
+output "job_name" {
+  value = google_cloud_run_v2_job.etl.name
 }
 
-output "service_uri" {
-  value = google_cloud_run_v2_service.etl.service_uri
+output "job_id" {
+  value = google_cloud_run_v2_job.etl.id
 }

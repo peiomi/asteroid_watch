@@ -88,6 +88,14 @@ output "artifact_registry_id" {
   value       = module.artifact_registry.repository_id
 }
 
+output "cloud_run_job_name" {
+  value = module.cloud_run.job_name
+}
+
+output "cloud_run_job_id" {
+  value = module.cloud_run.job_id
+}
+
 
 
 
