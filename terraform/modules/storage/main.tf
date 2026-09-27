@@ -18,6 +18,16 @@ resource "google_storage_bucket" "production" {
     retention_duration_seconds = 604800 # 7 days
   }
 
+  lifecycle_rule {
+    action {
+      type = "Delete"
+    }
+
+    condition {
+      age = 30
+    }
+  }
+
   labels = {
     environment = "production"
     team        = "platform"

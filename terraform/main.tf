@@ -56,3 +56,12 @@ module "cloud_run" {
 
   container_image = "us-central1-docker.pkg.dev/asteroid-watch-506918/asteroid-watch/asteroid-watch:latest"
 }
+
+module "scheduler" {
+  source = "./modules/scheduler"
+
+  project_id = var.project_id
+  region = var.region
+  job_name = module.cloud_run.job_name
+  scheduler_sa_email = module.iam.scheduler_sa_email
+}

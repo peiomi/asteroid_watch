@@ -10,5 +10,8 @@ tfplan
 __pycache__
 venv/
 
+# me to me arguing/reminding
+commands.txt
+
 
 

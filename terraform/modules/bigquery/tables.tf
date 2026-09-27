@@ -25,6 +25,10 @@ resource "google_bigquery_table" "asteroid_records" {
       type = "FLOAT"
     },
     {
+      name = "relative_velocity_km_s"
+      type = "FLOAT"
+    },
+    {
       name = "is_hazardous"
       type = "BOOL"
     },

@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime, UTC
 import logging
 
 from etl.bigquery_writer import BigQueryWriter
@@ -26,7 +26,8 @@ class ETLPipeline:
         data = self.nasa.fetch()
 
         logger.info("Uploading raw json")
-        filename = f"raw/{date.today()}.json"
+        ts = datetime.now(UTC)
+        filename = f"raw/{ts:%Y/%m/%d}/nasa_{ts:%H%M%S}.json"
         self.storage.upload_json(data=data, filename=filename)
 
         logger.info("Received NASA response")
