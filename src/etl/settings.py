@@ -4,3 +4,4 @@ class Settings:
     BUCKET_NAME = f"{PROJECT_ID}-production-data"
     ASTEROID_TABLE = f"{PROJECT_ID}.{DATASET_ID}.asteroid_records"
     RISK_TABLE = f"{PROJECT_ID}.{DATASET_ID}.risk_scores"
+    TOPIC_NAME = "etl-events"

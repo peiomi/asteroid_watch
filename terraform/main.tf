@@ -65,3 +65,7 @@ module "scheduler" {
   job_name = module.cloud_run.job_name
   scheduler_sa_email = module.iam.scheduler_sa_email
 }
+
+module "pubsub" {
+  source = "./modules/pubsub"
+}

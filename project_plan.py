@@ -68,6 +68,7 @@ class PsuedoCode:
 """ 
 ideas:
 - a bot that posts info every 6 hours or 1x a day with a photo on bluesky/twitter 
+- also discord server bot 
 - add a cloud run analytics API
 - monitoring dashboard, function latency, error rate 
 - Terraform

@@ -1,5 +1,8 @@
 from etl.pipeline import ETLPipeline
+from etl.pubsub_publisher import PubSubPublisher
 import logging
+
+publisher = PubSubPublisher()
 
 
 def main():
@@ -8,19 +11,20 @@ def main():
     )
 
     pipeline = ETLPipeline()
-    pipeline.run()
-    return
+
+    try:
+        pipeline.run()
+    except Exception as e:
+        publisher.publish({"event": "etl_failed", "error": str(e)})
+        raise
 
 
 if __name__ == "__main__":
     main()
 
 """ 
-- fetch nasa
-- noramlize
-- score
-- write to BigQuery
-- store raw JSON
-- handle errors
-- publish hazard alerts 
+- monitoring - job failures
+- build bots
+- bot integration/publish hazard alerts
+- anaytics/data visualization
  """

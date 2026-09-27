@@ -1,6 +1,7 @@
 google-cloud-secret-manager==2.20.0
 google-cloud-storage
 google-cloud-bigquery
+google-cloud-pubsub
 google-auth==2.32.0
 google-api-core==2.19.1
 requests==2.32.3

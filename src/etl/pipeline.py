@@ -8,6 +8,7 @@ from etl.normalizer import Normalizer
 from etl.risk_scorer import RiskScorer
 from etl.secrets_manager import SecretsManager
 from etl.settings import Settings
+from etl.pubsub_publisher import PubSubPublisher
 
 logger = logging.getLogger(__name__)
 
@@ -20,6 +21,9 @@ class ETLPipeline:
         self.normalizer = Normalizer()
         self.scorer = RiskScorer()
         self.bigquery = BigQueryWriter()
+        self.publisher = PubSubPublisher(
+            project_id=Settings.PROJECT_ID, topic_name=Settings.TOPIC_NAME
+        )
 
     def run(self):
         logger.info("Fetching NASA data")
@@ -45,4 +49,8 @@ class ETLPipeline:
         self.bigquery.write(
             records=risk_scores,
             table_id=Settings.RISK_TABLE,
+        )
+
+        self.publisher.publish(
+            {"event": "etl_completed", "records_processed": len(records)}
         )

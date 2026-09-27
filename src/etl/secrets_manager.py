@@ -1,4 +1,4 @@
-from etl.settings import Settings
+from src.etl.settings import Settings
 from google.cloud import secretmanager
 from google.api_core.exceptions import (
     PermissionDenied,
@@ -33,6 +33,6 @@ class SecretsManager:
             DeadlineExceeded,
             DefaultCredentialsError,
         ) as error:
-            raise Exception(f"Failed to access secret '{name}'") from error
+            raise RuntimeError(f"Failed to access secret '{name}'") from error
 
         return response.payload.data.decode("utf-8")

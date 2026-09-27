@@ -1,23 +1,23 @@
 import unittest
-import json
-import os
+from unittest.mock import MagicMock, patch
 from src.etl.cloud_storage import CloudStorage
 
 
 class TestCloudStorage(unittest.TestCase):
-    def test_upload_json(self):
-        storage = CloudStorage()
-        data = {"test": "value"}
-        storage.upload_json(data, "test.json")
+    @patch("src.etl.cloud_storage.storage.Client")
+    def test_upload_json(self, mock_client):
+        mock_blob = MagicMock()
+        mock_bucket = MagicMock()
 
-        self.assertTrue(os.path.exists("test.json"))
+        mock_bucket.blob.return_value = mock_blob
+        mock_client.return_value.bucket.return_value = mock_bucket
 
-        with open("test.json", "r") as f:
-            loaded_data = json.load(f)
+        storage = CloudStorage("test-bucket")
 
-        self.assertEqual(loaded_data, data)
+        storage.upload_json({"test": "value"}, "raw/test.json")
 
-        os.remove("test.json")
+        mock_bucket.blob.assert_called_once_with("raw/test.json")
+        mock_blob.upload_from_string.assert_called_once()
 
 
 if __name__ == "__main__":

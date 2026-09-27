@@ -18,7 +18,7 @@ class BigQueryWriter:
         errors = self.client.insert_rows_json(table_id, rows)
         # if not empty returns list off errors
         if errors:
-            logger.error("Failed ro insert rows %s. Errors: %s", table_id, errors)
+            logger.error("Failed to insert rows %s. Errors: %s", table_id, errors)
             raise RuntimeError(f"BigQuery insert failed: {errors}")
 
         logger.info("Successfully inserted %d rows into %s", len(rows), table_id)
