@@ -1,8 +1,11 @@
 from etl.pipeline import ETLPipeline
 from etl.pubsub_publisher import PubSubPublisher
+from etl.settings import Settings
 import logging
 
-publisher = PubSubPublisher()
+publisher = PubSubPublisher(
+    project_id=Settings.PROJECT_ID, topic_name=Settings.TOPIC_NAME
+)
 
 
 def main():

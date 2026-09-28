@@ -60,12 +60,19 @@ module "cloud_run" {
 module "scheduler" {
   source = "./modules/scheduler"
 
-  project_id = var.project_id
-  region = var.region
-  job_name = module.cloud_run.job_name
+  project_id         = var.project_id
+  region             = var.region
+  job_name           = module.cloud_run.job_name
   scheduler_sa_email = module.iam.scheduler_sa_email
 }
 
 module "pubsub" {
   source = "./modules/pubsub"
+}
+
+module "monitoring" {
+  source = "./modules/monitoring"
+
+  project_id = var.project_id
+  job_name   = module.cloud_run.job_name
 }
