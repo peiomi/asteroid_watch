@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/google"
       version = "~> 5.0"
     }
+
+    archive = {
+      source = "hashicorp/archive"
+    }
   }
 }
 
@@ -75,4 +79,13 @@ module "monitoring" {
 
   project_id = var.project_id
   job_name   = module.cloud_run.job_name
+}
+
+module "cloud_function" {
+  source = "./modules/cloud_function"
+
+  project_id            = var.project_id
+  region                = var.region
+  topic_name            = module.pubsub.topic_name
+  service_account_email = module.iam.bot_sa_email
 }
