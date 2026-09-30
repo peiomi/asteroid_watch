@@ -5,3 +5,4 @@ google-cloud-pubsub
 google-auth==2.32.0
 google-api-core==2.19.1
 requests==2.32.3
+atproto==25.0.1
