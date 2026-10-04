@@ -88,17 +88,6 @@ Each scored record contains:
 - Terraform
 - `unittest`
 
-## Repository Layout
-
-```text
-src/etl/                 Pipeline and integration components
-tests/                   Unit tests for ETL building blocks
-terraform/               Root infrastructure configuration and modules
-project_plan.py          Initial design notes and future work
-requirements.txt         Python dependencies
-test.sh                  Test entry point
-```
-
 ## Run Tests
 
 From the repository root:
