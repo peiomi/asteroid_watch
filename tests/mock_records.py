@@ -1,4 +1,4 @@
-from src.etl.models import AsteroidRecord
+from deployment.src.etl.models import AsteroidRecord
 
 MOCK_RECORDS = [
     # low risk

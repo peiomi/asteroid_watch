@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import MagicMock, patch
-from src.etl.cloud_storage import CloudStorage
+from deployment.src.etl.cloud_storage import CloudStorage
 
 
 class TestCloudStorage(unittest.TestCase):

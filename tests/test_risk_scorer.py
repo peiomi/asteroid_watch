@@ -1,5 +1,5 @@
 import unittest
-from src.etl.risk_scorer import RiskScorer
+from deployment.src.etl.risk_scorer import RiskScorer
 from tests.mock_records import MOCK_RECORDS
 
 

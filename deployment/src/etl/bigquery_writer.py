@@ -10,7 +10,12 @@ class BigQueryWriter:
         self.client = bigquery.Client()
 
     def write(self, records, table_id):
-        rows = [asdict(record) for record in records]
+        rows = []
+
+        for record in records:
+            row = asdict(record)
+            row["processed_at"] = row["processed_at"].isoformat()
+            rows.append(row)
 
         logger.info("attempting to insert %d rows into %s", len(rows), table_id)
 

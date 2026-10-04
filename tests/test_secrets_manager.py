@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import MagicMock, patch
-from src.etl.secrets_manager import SecretsManager
+from deployment.src.etl.secrets_manager import SecretsManager
 from google.api_core.exceptions import (
     PermissionDenied,
 )

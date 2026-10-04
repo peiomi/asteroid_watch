@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import MagicMock, patch
-from src.etl.nasa_client import NasaClient
+from deployment.src.etl.nasa_client import NasaClient
 
 
 class TestNasaClient(unittest.TestCase):

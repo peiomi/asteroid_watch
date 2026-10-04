@@ -37,6 +37,12 @@ resource "google_project_iam_member" "bot_bigquery" {
   member  = "serviceAccount:${google_service_account.bot.email}"
 }
 
+resource "google_project_iam_member" "bot_bigquery_job_user" {
+  project = var.project_id
+  role    = "roles/bigquery.jobUser"
+  member  = "serviceAccount:${google_service_account.bot.email}"
+}
+
 resource "google_project_iam_member" "bot_secret_accessor" {
   project = var.project_id
   role    = "roles/secretmanager.secretAccessor"

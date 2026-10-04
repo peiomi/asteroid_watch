@@ -35,6 +35,10 @@ resource "google_bigquery_table" "asteroid_records" {
     {
       name = "close_approach_date"
       type = "DATE"
+    },
+    {
+      name = "processed_at"
+      type = "TIMESTAMP"
     }
   ])
 }
@@ -72,6 +76,10 @@ resource "google_bigquery_table" "risk_scores" {
     {
       name = "risk_level"
       type = "STRING"
+    },
+    {
+      name = "processed_at"
+      type = "TIMESTAMP"
     }
   ])
 }

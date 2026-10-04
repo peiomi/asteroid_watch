@@ -2,7 +2,7 @@ import json
 import unittest
 from unittest.mock import patch
 
-from src.etl.pubsub_publisher import PubSubPublisher
+from deployment.src.etl.pubsub_publisher import PubSubPublisher
 
 
 class TestPubSubPublisher(unittest.TestCase):

@@ -1,5 +1,5 @@
 import unittest
-from src.etl.normalizer import Normalizer
+from deployment.src.etl.normalizer import Normalizer
 
 asteroid1 = {
     "id": "123",

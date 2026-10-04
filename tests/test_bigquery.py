@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch
-from src.etl.bigquery_writer import BigQueryWriter
+from deployment.src.etl.bigquery_writer import BigQueryWriter
 from tests.mock_records import MOCK_RECORDS
 
 

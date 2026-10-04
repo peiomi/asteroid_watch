@@ -41,7 +41,9 @@ module "iam" {
 module "secrets" {
   source = "./modules/secrets"
 
-  nasa_api_key = var.nasa_api_key
+  nasa_api_key      = var.nasa_api_key
+  discord_bot_token = var.discord_bot_token
+  bluesky_password  = var.bluesky_password
 }
 
 module "bigquery" {

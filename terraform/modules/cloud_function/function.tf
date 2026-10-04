@@ -1,12 +1,12 @@
 data "archive_file" "cloud_function" {
   type        = "zip"
-  source_dir  = "${path.root}/../cloud_function"
+  source_dir  = "${path.root}/../deployment"
   output_path = "${path.root}/../cloud_function.zip"
 }
 
 resource "google_storage_bucket_object" "function_zip" {
 
-  name   = "cloud_function.zip"
+  name = "cloud_function.zip"
 
   bucket = "${var.project_id}-production-data"
 

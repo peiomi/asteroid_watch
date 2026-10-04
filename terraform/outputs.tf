@@ -45,15 +45,6 @@ output "scheduler_sa_email" {
 # Secrets
 # ============================
 
-output "nasa_secret_id" {
-  description = "NASA API secret resource id"
-  value       = module.secrets.secret_id
-}
-
-output "nasa_secret_name" {
-  description = "NASA API secret name"
-  value       = module.secrets.secret_name
-}
 
 # ============================
 # BigQuery

@@ -1,4 +1,4 @@
-from event_handler import ETLEventHandler
+from cloud_function.event_handler import ETLEventHandler
 
 
 # google requires both params even if context not being used
