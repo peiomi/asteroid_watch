@@ -103,6 +103,7 @@ From the repository root:
 3. Add some data visualization with Jupyter
 4. Add scheduler-triggered execution and deployment automation.
 5. Add a small analytics API and hazard-alert bot backed by the warehouse.
+6. `error_writer` iam member for storage bucket isnt actually being used, I still need to figure out how to store failed records/payloads.
 
 ## Why I Built It
 

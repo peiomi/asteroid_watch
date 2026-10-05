@@ -36,8 +36,6 @@ if __name__ == "__main__":
     main()
 
 """ 
-- monitoring - job failures
-- build bots
-- bot integration/publish hazard alerts
-- anaytics/data visualization
+- data visualization
+- upload error logs to storage?? 
  """
