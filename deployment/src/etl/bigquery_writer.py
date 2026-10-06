@@ -1,6 +1,9 @@
 import logging
-from dataclasses import asdict
 from google.cloud import bigquery
+import time
+from google.api_core.exceptions import GoogleAPIError
+
+from src.etl.serializer import Serializer
 
 logger = logging.getLogger(__name__)
 
@@ -10,20 +13,41 @@ class BigQueryWriter:
         self.client = bigquery.Client()
 
     def write(self, records, table_id):
-        rows = []
+        max_attempts = 3
 
-        for record in records:
-            row = asdict(record)
-            row["processed_at"] = row["processed_at"].isoformat()
-            rows.append(row)
+        rows = Serializer.serialize_records(records)
 
-        logger.info("attempting to insert %d rows into %s", len(rows), table_id)
+        for attempt in range(max_attempts):
+            try:
+                logger.info("attempting to insert %d rows into %s", len(rows), table_id)
 
-        # will return empty list if success
-        errors = self.client.insert_rows_json(table_id, rows)
-        # if not empty returns list off errors
-        if errors:
-            logger.error("Failed to insert rows %s. Errors: %s", table_id, errors)
-            raise RuntimeError(f"BigQuery insert failed: {errors}")
+                # will return empty list if success
+                errors = self.client.insert_rows_json(table_id, rows)
+                # if not empty returns list off errors
+                if errors:
+                    raise RuntimeError(
+                        f"BigQuery insert failed for {table_id}: {errors}"
+                    )
 
-        logger.info("Successfully inserted %d rows into %s", len(rows), table_id)
+                logger.info(
+                    "Successfully inserted %d rows into %s", len(rows), table_id
+                )
+
+                return
+
+            except GoogleAPIError as e:
+                if attempt == max_attempts - 1:
+                    raise
+
+                wait = 2**attempt
+                logger.warning(
+                    "BigQuery API error (%s)."
+                    "Retrying in %d seconds "
+                    "(attempt %d/%d)",
+                    e,
+                    wait,
+                    attempt + 1,
+                    max_attempts,
+                )
+
+                time.sleep(wait)

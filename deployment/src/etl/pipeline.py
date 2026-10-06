@@ -1,5 +1,6 @@
 from datetime import datetime, UTC
 import logging
+from google.api_core.exceptions import GoogleAPIError
 
 from src.etl.bigquery_writer import BigQueryWriter
 from src.etl.cloud_storage import CloudStorage
@@ -38,19 +39,33 @@ class ETLPipeline:
         records = self.normalizer.normalize(data)
         logger.info("Normalized %d asteroid records", len(records))
 
-        self.bigquery.write(
-            records=records,
-            table_id=Settings.ASTEROID_TABLE,
-        )
+        etl_success = True
+
+        try:
+            self.bigquery.write(
+                records=records,
+                table_id=Settings.ASTEROID_TABLE,
+            )
+        except GoogleAPIError:
+            etl_success = False
+
+            path = self.storage.save_failed_batch(records, "asteroid")
+            logger.exception("BigQuery failed. Batch saved to %s", path)
 
         risk_scores = self.scorer.score_risk(records)
         logger.info("Generated %d risk scores", len(risk_scores))
 
-        self.bigquery.write(
-            records=risk_scores,
-            table_id=Settings.RISK_TABLE,
-        )
+        try:
+            self.bigquery.write(
+                records=risk_scores,
+                table_id=Settings.RISK_TABLE,
+            )
+        except GoogleAPIError:
+            etl_success = False
 
-        self.publisher.publish(
-            {"event": "etl_completed", "records_processed": len(records)}
-        )
+            path = self.storage.save_failed_batch(risk_scores, "scored")
+            logger.exception("BigQuery failed. Batch saved to %s", path)
+
+        event = "etl_completed" if etl_success else "etl_completed_with_errors"
+
+        self.publisher.publish({"event": event, "records_processed": len(records)})
