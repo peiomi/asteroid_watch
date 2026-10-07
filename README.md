@@ -107,3 +107,5 @@ From the repository root:
 ## Why I Built It
 
 I built Asteroid Watch to practice the parts of cloud and data engineering that matter beyond a single script: reliable ingestion, recoverable raw data, secure secret handling, infrastructure as code, efficient data storage, and automated testing.
+
+[>> Asteroid Watch BlueSky Account <<](https://bsky.app/profile/asteroid-watch.bsky.social)
