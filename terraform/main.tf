@@ -69,6 +69,7 @@ module "scheduler" {
   project_id         = var.project_id
   region             = var.region
   job_name           = module.cloud_run.job_name
+  recovery_job_name = module.cloud_run.recovery_job_name
   scheduler_sa_email = module.iam.scheduler_sa_email
 }
 

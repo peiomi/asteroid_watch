@@ -10,6 +10,10 @@ variable "job_name" {
   type = string
 }
 
+variable "recovery_job_name" {
+  type = string
+}
+
 variable "scheduler_sa_email" {
   type = string
 }

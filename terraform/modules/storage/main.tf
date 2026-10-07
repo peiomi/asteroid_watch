@@ -37,26 +37,8 @@ resource "google_storage_bucket" "production" {
   public_access_prevention = "enforced"
 }
 
-# Write only to raw/
-resource "google_storage_bucket_iam_member" "raw_writer" {
+resource "google_storage_bucket_iam_member" "etl_storage_admin" {
   bucket = google_storage_bucket.production.name
-  role   = "roles/storage.objectCreator"
+  role = "roles/storage.objectAdmin"
   member = "serviceAccount:${var.etl_sa_email}"
-
-  condition {
-    title      = "raw-only"
-    expression = "resource.name.startsWith('projects/_/buckets/${google_storage_bucket.production.name}/objects/raw/')"
-  }
-}
-
-# Write only to errors/
-resource "google_storage_bucket_iam_member" "error_writer" {
-  bucket = google_storage_bucket.production.name
-  role   = "roles/storage.objectCreator"
-  member = "serviceAccount:${var.etl_sa_email}"
-
-  condition {
-    title      = "errors-only"
-    expression = "resource.name.startsWith('projects/_/buckets/${google_storage_bucket.production.name}/objects/errors/')"
-  }
 }

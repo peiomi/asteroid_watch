@@ -13,7 +13,15 @@ class RecoveryService:
         self.bigquery = BigQueryWriter()
 
     def replay_failed_batches(self):
-        for blob in self.storage.list_failed_batches():
+        failed_batches = list(self.storage.list_failed_batches())
+
+        if not failed_batches:
+            logger.info("No failed batches found. Nothing to recover.")
+            return
+
+        logger.info("Found %d failed batches to recover", len(failed_batches))
+
+        for blob in failed_batches:
             records = self.storage.load_json(blob.name)
 
             if "asteroid_batch" in blob.name:
@@ -26,11 +34,14 @@ class RecoveryService:
                 logger.warning("Unknown batch type: %s", blob.name)
                 continue
 
-            self.bigquery.write(records=records, table_id=table_id)
+            try:
+                self.bigquery.write(records=records, table_id=table_id)
 
-            blob.delete()
+                blob.delete()
 
-            logger.info(
-                "Successfully recovered %s",
-                blob.name,
-            )
+                logger.info(
+                    "Successfully recovered %s",
+                    blob.name,
+                )
+            except Exception:
+                logger.exception("Failed recovering %s", blob.name)
