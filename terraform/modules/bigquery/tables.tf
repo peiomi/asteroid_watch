@@ -2,6 +2,14 @@ resource "google_bigquery_table" "asteroid_records" {
   dataset_id = google_bigquery_dataset.asteroid_data.dataset_id
   table_id   = "asteroid_records"
 
+  deletion_protection = false
+
+  time_partitioning {
+    type = "DAY"
+    field = "processed_at"
+    expiration_ms = 604800000
+  }
+
   schema = jsonencode([
     {
       name = "id"
@@ -46,6 +54,14 @@ resource "google_bigquery_table" "asteroid_records" {
 resource "google_bigquery_table" "risk_scores" {
   dataset_id = google_bigquery_dataset.asteroid_data.dataset_id
   table_id   = "risk_scores"
+
+  deletion_protection = false
+
+  time_partitioning {
+    type = "DAY"
+    field = "processed_at"
+    expiration_ms = 604800000
+  }
 
   schema = jsonencode([
     {
