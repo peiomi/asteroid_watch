@@ -4,7 +4,7 @@ Asteroid Watch is a cloud/data engineering project that turns NASA's Near Earth 
 
 The project is designed to demonstrate how I approach a full ETL cloud pipeline project: fetching external data, storing the raw data, turning it into analytics-friendly records, and preparing secure cloud infrastructure for scheduled execution.
 
-> **Project status:** Active development. The ETL pipeline is deployed and successfully running on Google Cloud Run Jobs. The Terraform code successfully configured the cloud infrastructure. NASA asteroid data is being successfully ingested and archived in Cloud Storage, normalized, and written to BigQuery. Pub/Sub is successfully sending updates. The Bluesky account and discord bot have been created and integrated into the codebase, still need to test connection. Risk scoring still needs improvement and I want to add some sort of data visualization before deployment.
+> **Project status:** Active development. The ETL pipeline is deployed and successfully running on Google Cloud Run Jobs. The Terraform code successfully configured the cloud infrastructure. NASA asteroid data is being successfully ingested and archived in Cloud Storage, normalized, and written to BigQuery. Pub/Sub is successfully sending updates. Risk scoring now uses thresholds similar to the values NASA uses for determining size/distance/speed classifications and I added linear interpolation to the calculations instead of rigid "if between these values give x amount of points". The Bluesky account and discord bot have been created and integrated into the codebase, still need to test connection and I want to add some sort of data visualization before full deployment.
 
 ## What This Project Demonstrates
 
@@ -98,11 +98,10 @@ From the repository root:
 
 ## Planned Improvements
 
-1. Refine risk-scoring calculations. I need to research what astronomy professionals actually consider 'fast', 'slow', 'big', 'small' or what is considered 'far' or 'close' in terms of asteroids.
-2. Code is written for BlueSky/Discord bot integration but hasn't been tested.
-3. Add some data visualization with Jupyter
-4. Add scheduler-triggered execution and deployment automation.
-5. Add a small analytics API and hazard-alert bot backed by the warehouse.
+- Code is written for BlueSky/Discord bot integration but hasn't been tested.
+- Add some data visualization with Jupyter
+- Add scheduler-triggered execution and deployment automation.
+- Add a small analytics API and hazard-alert bot backed by the warehouse.
 
 ## Why I Built It
 

@@ -1,9 +1,10 @@
 from src.etl.models import RiskScore
 
-# will figure out exact math this is just placeholder math
-
 
 class RiskScorer:
+    LUNAR_DISTANCE_KM = 384_000.0  # 1 lunar distance
+    NASA_PHA_KM = 7_480_000.0  # nasa pha distance limit
+
     def score_risk(self, records):
         risk_scores = []
 
@@ -46,49 +47,81 @@ class RiskScorer:
 
     def _calc_size(self, record):
         diameter = (record.diameter_min + record.diameter_max) / 2
-        if diameter <= 0.1:
-            score = 5
+
+        if diameter <= 0.14:
+            score = self._interpolate(diameter, 0.0, 0.14, 0.0, 5.0)
             size = "small"
-        elif diameter > 0.1 and diameter <= 0.5:
-            score = 10
+            # potentially hazardous objects < 50m burn up in atmosphere
+            # 50m - 140m can cause localized ground damage
+
+        elif diameter > 0.14 and diameter <= 0.5:
+            score = self._interpolate(diameter, 0.14, 0.5, 5.0, 10.0)
             size = "medium"
+            # capable of severe regional devastation
+
         elif diameter > 0.5 and diameter <= 1.0:
-            score = 15
+            score = self._interpolate(diameter, 0.5, 1.0, 10.0, 15.0)
             size = "large"
+            # capable of multi-state or continental-scale disaster
+
         elif diameter > 1.0:
-            score = 20
+            score = self._interpolate(diameter, 1.0, 2.5, 15.0, 20.0)
             size = "giant"
+            # global extinction threshold
+
         return (score, size)
 
     def _calc_velocity(self, record):
         velocity = record.relative_velocity_km_s
-        if velocity < 10.0:
-            score = 5
+        if velocity < 12.0:
+            score = self._interpolate(velocity, 0.0, 12.0, 0.0, 5.0)
             speed = "slow"
-        elif velocity >= 10.0 and velocity < 20.0:
-            score = 10
+
+        elif velocity >= 12.0 and velocity < 20.0:
+            score = self._interpolate(velocity, 12.0, 20.0, 5.0, 10.0)
             speed = "moderate"
+
         elif velocity >= 20.0 and velocity < 30.0:
-            score = 15
+            score = self._interpolate(velocity, 20.0, 30.0, 10.0, 15.0)
             speed = "fast"
+
         elif velocity >= 30.0:
-            score = 20
+            score = self._interpolate(velocity, 30.0, 50.0, 15.0, 20.0)
             speed = "very fast"
+
         return (score, speed)
 
     def _calc_distance(self, record):
         distance_km = record.miss_distance_km
-        if distance_km < 1_000_000.0:
-            score = 20
+        if distance_km < self.LUNAR_DISTANCE_KM:
+            score = self._interpolate(
+                distance_km, 0.0, self.LUNAR_DISTANCE_KM, 20.0, 15.0
+            )
             distance = "extremely close"
-        elif distance_km >= 1_000_000.0 and distance_km < 5_000_000.0:
-            score = 15
+
+        elif distance_km >= self.LUNAR_DISTANCE_KM and distance_km < (
+            5 * self.LUNAR_DISTANCE_KM
+        ):
+            score = self._interpolate(
+                distance_km,
+                self.LUNAR_DISTANCE_KM,
+                5 * self.LUNAR_DISTANCE_KM,
+                15.0,
+                10.0,
+            )
             distance = "close"
-        elif distance_km >= 5_000_000.0 and distance_km < 20_000_000.0:
-            score = 10
+
+        elif (
+            distance_km >= (self.LUNAR_DISTANCE_KM * 5)
+            and distance_km < self.NASA_PHA_KM
+        ):
+            score = self._interpolate(
+                distance_km, 5 * self.LUNAR_DISTANCE_KM, self.NASA_PHA_KM, 10.0, 0.0
+            )
             distance = "moderate"
-        elif distance_km >= 20_000_000.0:
-            score = 5
+
+        else:
+            score = 0.0
             distance = "far"
 
         return (score, distance)
@@ -96,13 +129,28 @@ class RiskScorer:
     def _calc_risk_level(self, total):
         if total <= 40:
             risk_level = "low"
+
         elif total > 40 and total < 71:
             risk_level = "moderate"
+
         elif total >= 71 and total < 91:
             risk_level = "high"
+
         elif total >= 91:
             risk_level = "extremely high"
+
         return risk_level
+
+    def _interpolate(self, val, min_val, max_val, min_score, max_score):
+        if val <= min_val:
+            return min_score
+
+        if val >= max_val:
+            return max_score
+
+        return min_score + (val - min_val) / (max_val - min_val) * (
+            max_score - min_score
+        )
 
 
 """ 

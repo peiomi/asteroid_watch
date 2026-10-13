@@ -20,7 +20,7 @@ class TestRiskScorer(unittest.TestCase):
         self.assertEqual(extreme.size, "giant")
         self.assertEqual(extreme.speed, "very fast")
         self.assertEqual(extreme.distance, "extremely close")
-        self.assertEqual(extreme.risk_score, 100)
+        self.assertAlmostEqual(extreme.risk_score, 93.74, places=2)
         self.assertEqual(extreme.risk_level, "extremely high")
 
     def test_high_risk(self):
@@ -30,30 +30,32 @@ class TestRiskScorer(unittest.TestCase):
         self.assertEqual(high.name, "Danger Dave")
         self.assertEqual(high.size, "large")
         self.assertEqual(high.speed, "fast")
-        self.assertEqual(high.distance, "close")
-        self.assertEqual(high.risk_score, 85)
+        self.assertEqual(high.distance, "moderate")
+        self.assertAlmostEqual(high.risk_score, 76.11, places=2)
         self.assertEqual(high.risk_level, "high")
 
     def test_medium_risk(self):
         results = self.scorer.score_risk(MOCK_RECORDS)
         medium = results[1]
+
         self.assertEqual(medium.id, "2")
         self.assertEqual(medium.name, "Medium Mike")
         self.assertEqual(medium.size, "medium")
         self.assertEqual(medium.speed, "moderate")
-        self.assertEqual(medium.distance, "moderate")
-        self.assertEqual(medium.risk_score, 70)
+        self.assertEqual(medium.distance, "far")
+        self.assertAlmostEqual(medium.risk_score, 55.14, places=2)
         self.assertEqual(medium.risk_level, "moderate")
 
     def test_low_risk(self):
         results = self.scorer.score_risk(MOCK_RECORDS)
         low = results[0]
+
         self.assertEqual(low.id, "1")
         self.assertEqual(low.name, "Tiny Tim")
         self.assertEqual(low.size, "small")
         self.assertEqual(low.speed, "slow")
         self.assertEqual(low.distance, "far")
-        self.assertEqual(low.risk_score, 15)
+        self.assertAlmostEqual(low.risk_score, 4.76, places=2)
         self.assertEqual(low.risk_level, "low")
 
     def test_hazardous_calc(self):
@@ -66,19 +68,19 @@ class TestRiskScorer(unittest.TestCase):
 
     def test_size_calc(self):
         small_score, small_size = self.scorer._calc_size(MOCK_RECORDS[0])
-        self.assertEqual(small_score, 5)
+        self.assertAlmostEqual(small_score, 2.68, places=2)
         self.assertEqual(small_size, "small")
 
         medium_score, medium_size = self.scorer._calc_size(MOCK_RECORDS[1])
-        self.assertEqual(medium_score, 10)
+        self.assertAlmostEqual(medium_score, 8.26, places=2)
         self.assertEqual(medium_size, "medium")
 
         large_score, large_size = self.scorer._calc_size(MOCK_RECORDS[2])
-        self.assertEqual(large_score, 15)
+        self.assertAlmostEqual(large_score, 13.75, places=2)
         self.assertEqual(large_size, "large")
 
         giant_score, giant_size = self.scorer._calc_size(MOCK_RECORDS[3])
-        self.assertEqual(giant_score, 20)
+        self.assertAlmostEqual(giant_score, 17.50, places=2)
         self.assertEqual(giant_size, "giant")
 
 
