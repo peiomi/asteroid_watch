@@ -3,7 +3,7 @@ from google.cloud import bigquery
 import time
 from google.api_core.exceptions import GoogleAPIError
 
-from src.etl.serializer import Serializer
+from deployment.src.etl.serializer import Serializer
 
 logger = logging.getLogger(__name__)
 

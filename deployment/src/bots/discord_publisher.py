@@ -1,17 +1,20 @@
 import discord
 from discord import app_commands
-from src.analytics.risk_analytics import RiskAnalytics
-from src.etl.secrets_manager import SecretsManager
+import logging
 
-analytics = RiskAnalytics()
+from deployment.src.analytics.risk_analytics import RiskAnalytics
+from deployment.src.etl.secrets_manager import SecretsManager
+
 secrets = SecretsManager()
 TOKEN = secrets.get_secret("discord_bot_token")
+handler = logging.FileHandler(filename="discord.log", encoding="utf-8", mode="w")
 
 
 class AsteroidBot(discord.Client):
     def __init__(self):
         super().__init__(intents=discord.Intents.default())
         self.tree = app_commands.CommandTree(self)
+        self.analytics = RiskAnalytics()
 
     async def setup_hook(self):
         await self.tree.sync()
@@ -30,7 +33,7 @@ async def asteroid(interaction: discord.Interaction):
 
 @bot.tree.command(name="highest-risk")
 async def highest_risk(interaction: discord.Interaction):
-    asteroid = analytics.get_highest_risk()
+    asteroid = bot.analytics.get_highest_risk()
 
     if asteroid is None:
         await interaction.response.send_message("No asteroid data found.")
@@ -49,18 +52,23 @@ Distance: {asteroid.distance}
 
 @bot.tree.command(name="average-risk")
 async def average_risk(interaction: discord.Interaction):
-    avg = analytics.get_average_risk()
+    avg = bot.analytics.get_average_risk()
 
     await interaction.response.send_message(f"average risk score: {avg:.2f}")
 
 
 @bot.tree.command(name="hazards")
 async def hazardous_asteroids(interaction: discord.Interaction):
-    hazards = analytics.get_hazardous_count()
+    hazards = bot.analytics.get_hazardous_count()
 
     await interaction.response.send_message(
         f"Number of Hazardous Objects Near Earth today: {hazards}"
     )
 
 
-bot.run(TOKEN)
+@bot.tree.command(name="rwgd")
+async def are_we_gunna_die(interaction: discord.Interaction):
+    await interaction.response.send_message("Probably not today 😎")
+
+
+bot.run(TOKEN, log_handler=handler)

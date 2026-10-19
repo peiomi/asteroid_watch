@@ -1,4 +1,4 @@
-from src.etl.settings import Settings
+from deployment.src.etl.settings import Settings
 from google.cloud import secretmanager
 from google.api_core.exceptions import (
     PermissionDenied,

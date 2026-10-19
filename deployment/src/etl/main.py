@@ -1,6 +1,6 @@
-from src.etl.pipeline import ETLPipeline
-from src.etl.pubsub_publisher import PubSubPublisher
-from src.etl.settings import Settings
+from deployment.src.etl.pipeline import ETLPipeline
+from deployment.src.etl.pubsub_publisher import PubSubPublisher
+from deployment.src.etl.settings import Settings
 import logging
 import traceback  # added bc 'gcloud beta run jobs executions logs read' command stopped working
 
@@ -37,5 +37,6 @@ if __name__ == "__main__":
 
 """ 
 - data visualization
-- upload error logs to storage?? 
+- ENV in dockerfile was causing problems with local testing removed it entirely so everything 
+runs on the same import path
  """

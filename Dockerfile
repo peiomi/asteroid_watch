@@ -8,6 +8,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-ENV PYTHONPATH=/app/deployment
-
-CMD ["python", "-m", "src.etl.main"]
+CMD ["python", "-m", "deployment.src.etl.main"]

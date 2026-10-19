@@ -2,14 +2,14 @@ from datetime import datetime, UTC
 import logging
 from google.api_core.exceptions import GoogleAPIError
 
-from src.etl.bigquery_writer import BigQueryWriter
-from src.etl.cloud_storage import CloudStorage
-from src.etl.nasa_client import NasaClient
-from src.etl.normalizer import Normalizer
-from src.etl.risk_scorer import RiskScorer
-from src.etl.secrets_manager import SecretsManager
-from src.etl.settings import Settings
-from src.etl.pubsub_publisher import PubSubPublisher
+from deployment.src.etl.bigquery_writer import BigQueryWriter
+from deployment.src.etl.cloud_storage import CloudStorage
+from deployment.src.etl.nasa_client import NasaClient
+from deployment.src.etl.normalizer import Normalizer
+from deployment.src.etl.risk_scorer import RiskScorer
+from deployment.src.etl.secrets_manager import SecretsManager
+from deployment.src.etl.settings import Settings
+from deployment.src.etl.pubsub_publisher import PubSubPublisher
 
 logger = logging.getLogger(__name__)
 

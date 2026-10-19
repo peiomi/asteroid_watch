@@ -1,8 +1,8 @@
 import logging
 
-from src.etl.settings import Settings
-from src.etl.bigquery_writer import BigQueryWriter
-from src.etl.cloud_storage import CloudStorage
+from deployment.src.etl.settings import Settings
+from deployment.src.etl.bigquery_writer import BigQueryWriter
+from deployment.src.etl.cloud_storage import CloudStorage
 
 logger = logging.getLogger(__name__)
 

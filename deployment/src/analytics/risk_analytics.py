@@ -1,5 +1,5 @@
 from google.cloud import bigquery
-from src.etl.settings import Settings
+from deployment.src.etl.settings import Settings
 
 
 class RiskAnalytics:

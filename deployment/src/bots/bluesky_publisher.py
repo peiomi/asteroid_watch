@@ -1,7 +1,7 @@
 from atproto import Client
-from src.analytics.risk_analytics import RiskAnalytics
-from src.etl.secrets_manager import SecretsManager
-from src.etl.settings import Settings
+from deployment.src.analytics.risk_analytics import RiskAnalytics
+from deployment.src.etl.secrets_manager import SecretsManager
+from deployment.src.etl.settings import Settings
 
 analytics = RiskAnalytics()
 secrets = SecretsManager()
@@ -38,3 +38,15 @@ Source: NASA NEO API
 
     def post(self, message):
         self.client.send_post(message)
+
+
+# just for local testing, run: python -m deployment.src.bots.bluesky_publisher
+""" 
+if __name__ == "__main__":
+    publisher = BlueSkyPublisher()
+    message = publisher.generate_post()
+
+    print("Generated post:")
+    print(message)
+
+    publisher.post(message=message) """

@@ -4,7 +4,7 @@ Asteroid Watch is a cloud/data engineering project that turns NASA's Near Earth 
 
 The project is designed to demonstrate how I approach a full ETL cloud pipeline project: fetching external data, storing the raw data, turning it into analytics-friendly records, and preparing secure cloud infrastructure for scheduled execution.
 
-> **Project status:** Active development. The ETL pipeline is deployed and successfully running on Google Cloud Run Jobs. The Terraform code successfully configured the cloud infrastructure. NASA asteroid data is being successfully ingested and archived in Cloud Storage, normalized, and written to BigQuery. Pub/Sub is successfully sending updates. Risk scoring now uses thresholds similar to the values NASA uses for determining size/distance/speed classifications and I added linear interpolation to the calculations instead of rigid "if between these values give x amount of points". The Bluesky account and discord bot have been created and integrated into the codebase, still need to test connection and I want to add some sort of data visualization before full deployment.
+> **Project status:** Active development. The ETL pipeline is deployed and successfully running on Google Cloud Run Jobs. The Terraform code successfully configured the cloud infrastructure. NASA asteroid data is being successfully ingested and archived in Cloud Storage, normalized, and written to BigQuery. Pub/Sub is successfully sending updates. Risk scoring now uses thresholds similar to the values NASA uses for determining size/distance/speed classifications and I added linear interpolation to the calculations instead of rigid "if between these values give x amount of points". The Bluesky account and Discord bot have been created and are successfully receiving communications from the etl pipeline. Last step is to add some data visualization with Jupyter and clean up the aesthetics with the socials.
 
 ## What This Project Demonstrates
 
@@ -36,7 +36,7 @@ Cloud Run Job
 		+--> hazard alerts / bot integrations
 ```
 
-The current Python pipeline is organized around small components:
+The current pipeline is organized around small components:
 
 | Component         | Responsibility                                            |
 | ----------------- | --------------------------------------------------------- |
@@ -87,6 +87,8 @@ Each scored record contains:
 - BigQuery
 - Terraform
 - `unittest`
+- discord.py
+- atproto
 
 ## Run Tests
 
@@ -98,10 +100,8 @@ From the repository root:
 
 ## Planned Improvements
 
-- Code is written for BlueSky/Discord bot integration but hasn't been tested.
 - Add some data visualization with Jupyter
 - Add scheduler-triggered execution and deployment automation.
-- Add a small analytics API and hazard-alert bot backed by the warehouse.
 
 ## Why I Built It
 

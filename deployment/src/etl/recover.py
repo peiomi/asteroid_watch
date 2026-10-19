@@ -1,6 +1,6 @@
 import logging
 
-from src.etl.recovery_service import RecoveryService
+from deployment.src.etl.recovery_service import RecoveryService
 
 
 def main():
