@@ -12,7 +12,7 @@ resource "google_cloud_run_v2_job" "etl" {
         command = [
           "python",
           "-m",
-          "src.etl.main"
+          "deployment.src.etl.main"
         ]
       }
 
@@ -34,7 +34,7 @@ resource "google_cloud_run_v2_job" "recovery" {
         command = [
           "python",
           "-m",
-          "src.etl.recover"
+          "deployment.src.etl.recover"
         ]
       }
     }
