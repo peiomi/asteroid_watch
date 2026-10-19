@@ -27,14 +27,16 @@ class RiskScorer:
             distance_score = self._calc_distance(record)
             total += distance_score[0]
 
+            rounded_total = round(total)
+
             score = RiskScore(
                 id=record.id,
                 name=record.name,
                 size=size_score[1],
                 speed=velocity_score[1],
                 distance=distance_score[1],
-                risk_score=total,
-                risk_level=self._calc_risk_level(total),
+                risk_score=rounded_total,
+                risk_level=self._calc_risk_level(rounded_total),
             )
             risk_scores.append(score)
 
