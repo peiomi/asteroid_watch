@@ -44,7 +44,18 @@ if __name__ == "__main__":
     main()
 
 """ 
-- data visualization
 - ENV in dockerfile was causing problems with local testing removed it entirely so everything 
 runs on the same import path
+
+REMINDER FOR TOMORROW ME:
+- docker image needs to be rebuilt
+- scheduler now has correct permissions and should start to run daily
+- look at r/dataisbeautiful for ideas to make the dashboard prettier 
+- BEFOREEEE trying to connect BQ or bluesky or discord focus on making dashboard pretty
+- once you have pretty png, refactor to connect to BQ/bluesky
+- then focus on cloud run service for discord bot
+- THEN you can move on to notebooks for the discord commands 
+- ideas for notebooks: scatter plot of risk levels, daily count for hazardous objects, are we gunna die today
+
+- !!!!! dont forget to uncomment code for bluesky post once dashboard is ready !!!!!!
  """
