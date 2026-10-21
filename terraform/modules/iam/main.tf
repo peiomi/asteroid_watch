@@ -60,3 +60,9 @@ resource "google_project_iam_member" "scheduler_pubsub" {
   role    = "roles/pubsub.publisher"
   member  = "serviceAccount:${google_service_account.scheduler.email}"
 }
+
+resource "google_project_iam_member" "scheduler_run_invoker" {
+  project = var.project_id
+  role    = "roles/run.invoker"
+  member  = "serviceAccount:${google_service_account.scheduler.email}"
+}

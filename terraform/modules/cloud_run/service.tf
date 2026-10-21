@@ -1,3 +1,4 @@
+/*
 resource "google_cloud_run_v2_service" "discord_bot" {
   name     = "asteroid-watch-discord"
   location = var.region
@@ -32,3 +33,4 @@ resource "google_cloud_run_service_iam_member" "public" {
   role     = "roles/run.invoker"
   member   = "allUsers"
 }
+*/
