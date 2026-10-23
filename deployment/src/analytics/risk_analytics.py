@@ -52,3 +52,22 @@ class RiskAnalytics:
         rows = list(self.client.query(query).result())
 
         return rows[0].hazardous_count if rows else 0
+
+    def get_asteroid_data(self, asteroid_name):
+        query = f"""
+        SELECT *
+        FROM {Settings.ASTEROID_TABLE}
+        WHERE name = @asteroid_name
+        AND DATE(processed_at) = CURRENT_DATE()
+        LIMIT 1
+        """
+
+        job_config = bigquery.QueryJobConfig(
+            query_parameters=[
+                bigquery.ScalarQueryParameter("asteroid_name", "STRING", asteroid_name)
+            ]
+        )
+
+        rows = list(self.client.query(query, job_config=job_config).result())
+
+        return rows[0] if rows else None

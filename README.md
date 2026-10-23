@@ -4,7 +4,7 @@ Asteroid Watch is a cloud/data engineering project that turns NASA's Near Earth 
 
 The project is designed to demonstrate how I approach a full ETL cloud pipeline project: fetching external data, storing the raw data, turning it into analytics-friendly records, and preparing secure cloud infrastructure for scheduled execution.
 
-> **Project status:** Active development. The ETL pipeline is deployed and successfully running on Google Cloud Run Jobs. The Terraform code successfully configured the cloud infrastructure. NASA asteroid data is being successfully ingested and archived in Cloud Storage, normalized, and written to BigQuery. Pub/Sub is successfully sending updates. Risk scoring now uses thresholds similar to the values NASA uses for determining size/distance/speed classifications and I added linear interpolation to the calculations instead of rigid "if between these values give x amount of points". The Bluesky account and Discord bot have been created and are successfully receiving communications from the etl pipeline. I need to create a Cloud Run Service for the discord bot and after that the last step is to add some data visualization with Jupyter and clean up the aesthetics with the socials.
+> **Project status:** Active development. The ETL pipeline is deployed and successfully running on Google Cloud Run Jobs. The Terraform code successfully configured the cloud infrastructure. NASA asteroid data is being successfully ingested and archived in Cloud Storage, normalized, and written to BigQuery. Pub/Sub is successfully sending updates. Risk scoring now uses thresholds similar to the values NASA uses for determining size/distance/speed classifications and I added linear interpolation to the calculations instead of rigid "if between these values give x amount of points". The Bluesky account and Discord bot have been created and are successfully receiving communications from the etl pipeline. I have created data visualization with matplotlib/jupyter to be posted in the bluesky post, it is querying from BQ and be posted successfully, next step is to refactor the code into a module that will run inside the pipeline. Last step is to create a Cloud Run Service for the discord bot and finish the bot application
 
 ## What This Project Demonstrates
 
@@ -14,6 +14,7 @@ The project is designed to demonstrate how I approach a full ETL cloud pipeline 
 - Terraform-managed Google Cloud infrastructure
 - IAM separation for ETL, bot, and scheduler service accounts
 - Automated test entry point using Python's `unittest`
+- Automated report and visualization generation
 
 ## Architecture
 
@@ -89,6 +90,8 @@ Each scored record contains:
 - `unittest`
 - discord.py
 - atproto
+- matplotlib
+- Jupyter Notebook
 
 ## Run Tests
 
@@ -100,8 +103,7 @@ From the repository root:
 
 ## Planned Improvements
 
-- Add some data visualization with Jupyter
-- Add scheduler-triggered execution and deployment automation.
+- Add a Cloud Run Service to house the discord bot app
 
 ## Why I Built It
 
