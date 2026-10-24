@@ -1,7 +1,7 @@
 import base64
 import json
 import logging
-from src.bots.bluesky_publisher import BlueSkyPublisher
+from deployment.src.etl.bluesky_publisher import BlueSkyPublisher
 
 logger = logging.getLogger(__name__)
 

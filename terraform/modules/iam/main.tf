@@ -19,6 +19,12 @@ resource "google_project_iam_member" "etl_bigquery" {
   member  = "serviceAccount:${google_service_account.etl.email}"
 }
 
+resource "google_project_iam_member" "etl_bigquery_job_user" {
+  project = var.project_id
+  role    = "roles/bigquery.jobUser"
+  member  = "serviceAccount:${google_service_account.etl.email}"
+}
+
 resource "google_project_iam_member" "etl_secret_accessor" {
   project = var.project_id
   role    = "roles/secretmanager.secretAccessor"

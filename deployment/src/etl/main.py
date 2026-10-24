@@ -1,10 +1,10 @@
 from deployment.src.etl.pipeline import ETLPipeline
 from deployment.src.etl.pubsub_publisher import PubSubPublisher
 from deployment.src.etl.settings import Settings
-from deployment.src.bots.bluesky_publisher import BlueSkyPublisher
+from deployment.src.etl.bluesky_publisher import BlueSkyPublisher
 
 import logging
-import traceback  # added bc 'gcloud beta run jobs executions logs read' command stopped working
+import traceback
 
 
 def main():
@@ -26,9 +26,9 @@ def main():
         pipeline.run()
         logging.info("ETL completed successfully")
 
-        """ message = bluesky.generate_post()
+        message = bluesky.generate_post()
         image = bluesky.get_chart_image()
-        bluesky.post(message=message, image=image) """
+        bluesky.post(message=message, image=image)
 
     except Exception:
         error = traceback.format_exc()

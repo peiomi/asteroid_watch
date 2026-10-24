@@ -2,7 +2,7 @@ from atproto import Client
 from deployment.src.analytics.risk_analytics import RiskAnalytics
 from deployment.src.etl.secrets_manager import SecretsManager
 from deployment.src.etl.settings import Settings
-from PIL import Image
+from deployment.src.etl.graph_maker import GraphMaker
 
 analytics = RiskAnalytics()
 secrets = SecretsManager()
@@ -40,6 +40,9 @@ Source: NASA NEO API
         return message
 
     def get_chart_image(self):
+        graph_maker = GraphMaker()
+        graph_maker.risk_dist()
+
         with open("deployment/src/notebooks/dashboard.png", "rb") as image_file:
             image_data = image_file.read()
 
@@ -59,7 +62,7 @@ Source: NASA NEO API
         )
 
 
-# just for local testing, run: python -m deployment.src.bots.bluesky_publisher
+# just for local testing, uncomment and run: python -m deployment.src.bots.bluesky_publisher
 
 """ if __name__ == "__main__":
     publisher = BlueSkyPublisher()
