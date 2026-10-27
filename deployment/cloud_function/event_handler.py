@@ -19,9 +19,10 @@ class ETLEventHandler:
 
     def _handle_etl_completed(self):
         try:
-            publisher = BlueSkyPublisher()
-            message = publisher.generate_post()
-            publisher.post(message=message)
+            bluesky = BlueSkyPublisher()
+            message = bluesky.generate_post()
+            image = bluesky.get_chart_image()
+            bluesky.post(message=message, image=image)
             logger.info("Posted asteroid update to Bluesky")
         except Exception as e:
             logger.exception("Failed to publish BlueSky update: %s", e)

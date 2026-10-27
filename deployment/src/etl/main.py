@@ -1,7 +1,6 @@
 from deployment.src.etl.pipeline import ETLPipeline
 from deployment.src.etl.pubsub_publisher import PubSubPublisher
 from deployment.src.etl.settings import Settings
-from deployment.src.etl.bluesky_publisher import BlueSkyPublisher
 
 import logging
 import traceback
@@ -20,15 +19,9 @@ def main():
     logging.info("PROJECT_ID=%s", Settings.PROJECT_ID)
     logging.info("TOPIC=%s", Settings.TOPIC_NAME)
 
-    bluesky = BlueSkyPublisher()
-
     try:
         pipeline.run()
         logging.info("ETL completed successfully")
-
-        message = bluesky.generate_post()
-        image = bluesky.get_chart_image()
-        bluesky.post(message=message, image=image)
 
     except Exception:
         error = traceback.format_exc()
@@ -50,8 +43,8 @@ runs on the same import path
 - scheduler now has correct permissions and should start to run daily
 
 REMINDER FOR TOMORROW ME:
-- logic for graph png is done refactor it into a module that runs in the pipeline
-- uncomment bluesky post code then rebuild docker/terraform apply
+- check to see if there arent duplicate records for the same asteroid :|
+
 - then focus on cloud run service for discord bot
 - THEN you can move on to notebooks for the discord commands 
 
