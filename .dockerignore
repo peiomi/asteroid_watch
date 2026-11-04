@@ -1,0 +1,15 @@
+venv/
+.venv/
+__pycache__/
+.git/
+terraform/.terraform/
+
+*.pyc
+*.pyo
+*.pyd
+
+.env
+.env.*
+
+.idea/
+.vscode/

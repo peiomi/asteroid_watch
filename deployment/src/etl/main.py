@@ -1,6 +1,6 @@
-from deployment.src.etl.pipeline import ETLPipeline
-from deployment.src.etl.pubsub_publisher import PubSubPublisher
-from deployment.src.etl.settings import Settings
+from .pipeline import ETLPipeline
+from .pubsub_publisher import PubSubPublisher
+from .settings import Settings
 
 import logging
 import traceback
@@ -43,6 +43,7 @@ runs on the same import path
 - scheduler now has correct permissions and should start to run daily
 
 REMINDER FOR TOMORROW ME:
+- cloud function name mismatch 
 - check to see if there arent duplicate records for the same asteroid :|
 
 - then focus on cloud run service for discord bot

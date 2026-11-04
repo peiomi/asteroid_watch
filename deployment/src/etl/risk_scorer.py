@@ -1,4 +1,4 @@
-from deployment.src.etl.models import RiskScore
+from .models import RiskScore
 
 
 class RiskScorer:

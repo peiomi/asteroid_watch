@@ -1,8 +1,8 @@
 from atproto import Client
-from deployment.src.analytics.risk_analytics import RiskAnalytics
-from deployment.src.etl.secrets_manager import SecretsManager
-from deployment.src.etl.settings import Settings
-from deployment.src.etl.graph_maker import GraphMaker
+from ..analytics.risk_analytics import RiskAnalytics
+from .secrets_manager import SecretsManager
+from .settings import Settings
+from .graph_maker import GraphMaker
 
 analytics = RiskAnalytics()
 secrets = SecretsManager()
@@ -17,11 +17,12 @@ class BlueSkyPublisher:
 
     def generate_post(self):
         asteroid = analytics.get_highest_risk()
-        asteroid_data = analytics.get_asteroid_data(asteroid_name=asteroid.name)
-        hazards = analytics.get_hazardous_count()
 
         if asteroid is None:
             return "No asteroid data available."
+
+        asteroid_data = analytics.get_asteroid_data(asteroid_name=asteroid.name)
+        hazards = analytics.get_hazardous_count()
 
         message = f"""
 ☄️ Asteroid Watch Daily Update ☄️
@@ -43,7 +44,7 @@ Source: NASA NEO API
         graph_maker = GraphMaker()
         graph_maker.risk_dist()
 
-        with open("deployment/src/notebooks/dashboard.png", "rb") as image_file:
+        with open("/tmp/dashboard.png", "rb") as image_file:
             image_data = image_file.read()
 
         image = self.client.upload_blob(image_data)

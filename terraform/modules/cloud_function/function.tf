@@ -6,7 +6,7 @@ data "archive_file" "cloud_function" {
 
 resource "google_storage_bucket_object" "function_zip" {
 
-  name = "cloud_function.zip"
+  name = "cloud_function-${data.archive_file.cloud_function.output_md5}.zip"
 
   bucket = "${var.project_id}-production-data"
 
@@ -36,7 +36,7 @@ resource "google_cloudfunctions2_function" "etl_event_handler" {
 
     max_instance_count = 1
 
-    available_memory = "256M"
+    available_memory = "512M"
 
     timeout_seconds = 60
 

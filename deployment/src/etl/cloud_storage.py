@@ -2,7 +2,7 @@ import json
 from google.cloud import storage
 from datetime import datetime, UTC
 
-from deployment.src.etl.serializer import Serializer
+from .serializer import Serializer
 
 
 class CloudStorage:

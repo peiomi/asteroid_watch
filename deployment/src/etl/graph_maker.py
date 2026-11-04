@@ -3,7 +3,7 @@ import numpy as np
 from matplotlib.colors import LinearSegmentedColormap
 import matplotlib.patheffects as pe
 
-from deployment.src.analytics.risk_analytics import RiskAnalytics
+from ..analytics.risk_analytics import RiskAnalytics
 
 
 class GraphMaker:
@@ -15,7 +15,7 @@ class GraphMaker:
             "yellow": "#FFFF33",
             "blue": "#48CAE4",
         }
-        plt.rcParams["font.family"] = "Consolas"
+        plt.rcParams["font.family"] = "Liberation Mono"
 
     def set_nebula_gradient(self, ax):
         # (im sure there is a better way to do this but i was having fun w this sue me)
@@ -128,7 +128,7 @@ class GraphMaker:
 
         plt.tight_layout(rect=[0, 0, 1, 0.95])
         plt.savefig(
-            "deployment/src/notebooks/dashboard.png",
+            "/tmp/dashboard.png",
             facecolor=fig.get_facecolor(),
             bbox_inches="tight",
         )

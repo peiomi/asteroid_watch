@@ -1,4 +1,4 @@
-from deployment.src.etl.models import AsteroidRecord
+from .models import AsteroidRecord
 import logging
 
 logger = logging.getLogger(__name__)
