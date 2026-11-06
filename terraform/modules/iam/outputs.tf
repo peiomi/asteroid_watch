@@ -9,3 +9,7 @@ output "bot_sa_email" {
 output "scheduler_sa_email" {
   value = google_service_account.scheduler.email
 }
+
+output "discord_bot_sa_email" {
+  value = google_service_account.discord_bot.email
+}

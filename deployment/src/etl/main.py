@@ -38,15 +38,8 @@ if __name__ == "__main__":
     main()
 
 """ 
-- ENV in dockerfile was causing problems with local testing removed it entirely so everything 
-runs on the same import path
-- scheduler now has correct permissions and should start to run daily
-
 REMINDER FOR TOMORROW ME:
-- cloud function name mismatch 
-- check to see if there arent duplicate records for the same asteroid :|
-
-- then focus on cloud run service for discord bot
+- terraform apply/ test discord bot
 - THEN you can move on to notebooks for the discord commands 
 
 - ideas for notebooks: are we gunna die today

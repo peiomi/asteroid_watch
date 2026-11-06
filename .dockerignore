@@ -13,3 +13,5 @@ terraform/.terraform/
 
 .idea/
 .vscode/
+
+discord_bot/

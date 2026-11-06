@@ -5,9 +5,7 @@ import logging
 from deployment.src.analytics.risk_analytics import RiskAnalytics
 from deployment.src.etl.secrets_manager import SecretsManager
 
-secrets = SecretsManager()
-TOKEN = secrets.get_secret("discord_bot_token")
-handler = logging.FileHandler(filename="discord.log", encoding="utf-8", mode="w")
+logging.basicConfig(level=logging.INFO)
 
 
 class AsteroidBot(discord.Client):
@@ -20,7 +18,7 @@ class AsteroidBot(discord.Client):
         await self.tree.sync()
 
     async def on_ready(self):
-        print(f"logged in as {self.user}")
+        logging.info("Logged in as %s", self.user)
 
 
 bot = AsteroidBot()
@@ -71,4 +69,7 @@ async def are_we_gunna_die(interaction: discord.Interaction):
     await interaction.response.send_message("Probably not today 😎")
 
 
-bot.run(TOKEN, log_handler=handler)
+if __name__ == "__main__":
+    secrets = SecretsManager()
+    TOKEN = secrets.get_secret("discord_bot_token")
+    bot.run(TOKEN)

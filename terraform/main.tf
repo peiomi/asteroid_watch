@@ -92,3 +92,12 @@ module "cloud_function" {
   topic_name            = module.pubsub.topic_name
   service_account_email = module.iam.bot_sa_email
 }
+
+module "compute_engine" {
+  source = "./modules/compute_engine"
+
+  project_id = var.project_id
+  region     = var.region
+
+  discord_sa_email = module.iam.discord_bot_sa_email
+}
