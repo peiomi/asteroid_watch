@@ -9,7 +9,7 @@ git clone https://github.com/peiomi/asteroid_watch.git
 
 cd asteroid_watch
 
-pip3 install --break-system-packages -r requirements.txt
+pip3 install --break-system-packages -r discord_bot/bot_requirements.txt
 
 cat > /etc/systemd/system/asteroid-bot.service << 'EOF'
 [Unit]
