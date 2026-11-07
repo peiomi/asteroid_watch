@@ -18,6 +18,7 @@ After=network.target
 
 [Service]
 WorkingDirectory=/opt/asteroid_watch
+Environment=PYTHONPATH=/opt/asteroid_watch
 ExecStart=/usr/bin/python3 -m discord_bot.bot
 Restart=always
 User=root
