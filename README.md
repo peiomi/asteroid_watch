@@ -4,7 +4,7 @@ Asteroid Watch is a cloud/data engineering project that turns NASA's Near Earth 
 
 The project is designed to demonstrate how I approach a full ETL cloud pipeline project: fetching external data, storing the raw data, turning it into analytics-friendly records, and preparing secure cloud infrastructure for scheduled execution.
 
-> **Project status:** Active development. Daily updates via Bluesky are up and running. I am currently working on the Discord bot app.
+> **Project status:** Active development. Daily updates via Bluesky are up and running and discord bot is responding in discord. I am currently working on data visualization to include with the bot responses.
 
 ## What This Project Demonstrates
 
@@ -111,3 +111,12 @@ From the repository root:
 I built Asteroid Watch to practice the parts of cloud and data engineering that matter beyond a single script: reliable ingestion, recoverable raw data, secure secret handling, infrastructure as code, efficient data storage, and automated testing.
 
 [>> Asteroid Watch BlueSky Account <<](https://bsky.app/profile/asteroid-watch.bsky.social)
+
+[>> Invite Asteroid Watch Bot To a Discord Server <<](https://discord.com/oauth2/authorize?client_id=1555633996451545089)
+
+### Available Commands (more are coming)
+
+- /rwgd (r we gunna die?)
+- /average-risk (gives an average risk score of all the asteroids near by)
+- /hazards (gives the number of objects near earth NASA classified "is hazardous")
+- /highest-risk (gives all the data on the highest risk asteroid)
